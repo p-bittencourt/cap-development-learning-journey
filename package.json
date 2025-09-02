@@ -16,13 +16,13 @@
         "[development]": {
           "kind": "sqlite",
           "credentials": {
-            "url": ":memory:"
+            "url": "db.sqlite"
           }
         },
         "[testing]": {
           "kind": "sqlite",
           "credentials": {
-            "url": "db.sqlite"
+            "url": ":memory:"
           }
         }
       }
