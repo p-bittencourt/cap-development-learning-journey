@@ -42,3 +42,11 @@ entity Authors : cuid, managed {
 entity Epochs : CodeList {
     key ID : UUID;
 }
+
+annotate Books with {
+    modifiedAt @odata.etag;
+}
+
+annotate Authors with {
+    modifiedAt @odata.etag;
+}
