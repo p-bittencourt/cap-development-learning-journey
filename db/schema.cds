@@ -2,14 +2,17 @@ namespace com.sap.learning;
 
 using {
     cuid,
-    managed
+    managed,
+    Country,
+    Currency,
+    sap.common.CodeList
 } from '@sap/cds/common';
 
 entity Books : cuid, managed {
-        title       : String(255);
+        title       : localized String(255);
         author      : Association to Authors;
         genre       : Genre;
-        publCountry : String(3);
+        publCountry : Country;
         stock       : NoOfBooks;
         price       : Price;
         isHardCover : Boolean;
@@ -24,13 +27,18 @@ type NoOfBooks : Integer;
 
 type Price {
     amount   : Decimal;
-    currency : String(3);
+    currency : Currency;
 }
 
 entity Authors : cuid, managed {
         name        : String(100);
         dateOfBirth : Date;
         dateOfDeath : Date;
+        epoch      : Association to Epochs;
         books       : Association to many Books
                         on books.author = $self;
+}
+
+entity Epochs : CodeList {
+    key ID : UUID;
 }
