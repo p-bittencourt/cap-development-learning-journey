@@ -27,18 +27,18 @@ class CatalogService extends cds.ApplicationService {
         const { book, quantity } = req.data;
 
         if (quantity < 1) {
-            return req.error(400, 'Quantity must be at least 1.');
+            return req.error('INVALID_QUANTITY');
         }
 
         const b = await SELECT.one.from(Books).where({ ID: book }).columns(b => { b.stock });
 
         if (!b) {
-            return req.error(404, `Book with ID ${book} does not exist`);
+            return req.error(404, 'BOOK_NOT_FOUND', [book]);
         }
 
         let { stock } = b;
         if (quantity > stock) {
-            return req.error(400, `${quantity} exceeds stock ${stock} for book with ID ${book}`);
+            return req.error(400, 'ORDER_EXCEEDS_STOCK', [quantity, stock, book]);
         }
 
         await UPDATE(Books).where({ ID: book }).with({ stock: { '-=': quantity } });
