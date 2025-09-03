@@ -20,7 +20,7 @@ class AdminService extends cds.ApplicationService {
         const death = new Date(dateOfDeath);
 
         if (death < birth) {
-            req.error(`The date of death ${dateOfDeath} is before the date of birth ${dateOfBirth}`)
+            req.error(400, `The date of death ${dateOfDeath} is before the date of birth ${dateOfBirth}`)
         }
     }
 

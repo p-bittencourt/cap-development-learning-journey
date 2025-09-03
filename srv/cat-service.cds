@@ -25,6 +25,9 @@ service CatalogService @(path: '/cat') {
             createdBy,
             modifiedAt,
             modifiedBy
-        }
+        };
 
+    action submitOrder(book: db.Books:ID, quantity : Integer) returns {
+        stock : db.Books:stock;
+    }
 }
